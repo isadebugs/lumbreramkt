@@ -1,3 +1,407 @@
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: lightblue;
+    font-family: 'Century Gothic', sans-serif;
+    color: white;
+    background-color: #010e79; /* Azul oscuro */
+    overflow-x: hidden;
+}
+
+/* Pantalla de bienvenida */
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0114ae; /* Azul oscuro intenso */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: transform 1s ease-in-out;
+}
+
+.welcome-content {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-title {
+    font-size: 4rem;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    position: relative;
+    color: white;
+    padding: 20px;
+}
+
+/* Efecto de luz pasando por las letras */
+.light-effect {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: lightPass 2.5s ease-in-out infinite;
+}
+
+@keyframes lightPass {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Contenido principal */
+.container {
+    display: none; /* Oculto hasta que termine la pantalla de bienvenida */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Header / Bloque superior */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #010e79; /* Azul oscuro */
+    border-bottom: 3px solid #fa3b00; /* Naranja brillante */
+    position: relative;
+}
+
+/* Logo y título en la izquierda */
+.logo-section {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.logo-placeholder {
+    width: 50px;
+    height: 50px;
+    background-color: #fa3b00; /* Naranja brillante */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+.site-title {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+}
+
+/* Carrusel de eslogan en el centro */
+.slogan-carousel {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slides {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slogan {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #fa3b00; /* Naranja brillante */
+}
+
+/* Botón de contacto en la derecha */
+.contact-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contact-btn {
+    background-color: #fa3b00; /* Naranja brillante */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-family: 'Century Gothic', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-btn:hover {
+    background-color: #e03500;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(250, 59, 0, 0.3);
+}
+
+/* Contenido principal */
+.main-content {
+    padding: 60px 40px;
+    min-height: 70vh;
+}
+
+.content-placeholder {
+    background-color: rgba(1, 20, 174, 0.2); /* Azul oscuro intenso con transparencia */
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid rgba(250, 59, 0, 0.2); /* Naranja brillante con transparencia */
+}
+
+.content-placeholder h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+}
+
+.content-placeholder p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+/* Modal de contacto */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #010e79; /* Azul oscuro */
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    border: 2px solid #fa3b00; /* Naranja brillante */
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #fa3b00; /* Naranja brillante */
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    background-color: rgba(1, 20, 174, 0.3); /* Azul oscuro intenso con transparencia */
+    color: white;
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #fa3b00; /* Naranja brillante */
+}
+
+.submit-btn {
+    background-color: #fa3b00; /* Naranja brillante */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-family: 'Century Gothic', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #e03500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .welcome-title {
+        font-size: 3rem;
+        letter-spacing: 5px;
+    }
+    
+    .header {
+        padding: 15px 20px;
+    }
+    
+    .site-title {
+        font-size: 1.5rem;
+    }
+    
+    .slogan {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .logo-section {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    
+    .slogan-carousel {
+        width: 100%;
+        margin: 15px 0;
+    }
+    
+    .contact-section {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .welcome-title {
+        font-size: 2.2rem;
+        letter-spacing: 3px;
+    }
+    
+    .slogan {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-title {
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+    }
+    
+    .site-title {
+        font-size: 1.2rem;
+    }
+    
+    .slogan {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+    }
+    
+    .contact-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .main-content {
+        padding: 40px 20px;
+    }
+    
+    .content-placeholder {
+        padding: 25px;
+    }
+    
+    .content-placeholder h2 {
+        font-size: 1.8rem;
+    }
 }
