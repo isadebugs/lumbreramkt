@@ -7,19 +7,20 @@
 
 body {
     font-family: 'Century Gothic', sans-serif;
-    color: white;
-    background-color: #010e79; /* Azul oscuro */
+    color: #000000; /* Letras negras */
+    background-color: #ffffff; /* Fondo blanco */
     overflow-x: hidden;
+    transition: background-color 0.5s ease;
 }
 
-/* Pantalla de bienvenida */
+/* Pantalla de bienvenida - Fondo azul cielo */
 .welcome-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #0114ae; /* Azul oscuro intenso */
+    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%); /* Azul cielo */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,33 +32,44 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
+    padding: 30px;
 }
 
 .welcome-title {
-    font-size: 4rem;
-    letter-spacing: 8px;
+    font-size: 4.5rem;
+    letter-spacing: 10px;
     text-transform: uppercase;
     position: relative;
     color: white;
     padding: 20px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
 }
 
-/* Efecto de luz pasando por las letras */
+/* Efecto de luz pasando por las letras mejorado */
 .light-effect {
     position: absolute;
     top: 0;
     left: -100%;
-    width: 100%;
+    width: 150%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    animation: lightPass 2.5s ease-in-out infinite;
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.8), 
+        rgba(255, 255, 255, 0.9), 
+        rgba(255, 255, 255, 0.8), 
+        transparent
+    );
+    animation: lightPass 3s ease-in-out infinite;
+    transform: skewX(-20deg);
 }
 
 @keyframes lightPass {
     0% {
         left: -100%;
     }
-    50% {
+    70% {
         left: 100%;
     }
     100% {
@@ -67,9 +79,12 @@ body {
 
 /* Contenido principal */
 .container {
-    display: none; /* Oculto hasta que termine la pantalla de bienvenida */
+    display: none;
     opacity: 0;
     transition: opacity 0.5s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header / Bloque superior */
@@ -78,9 +93,10 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background-color: #010e79; /* Azul oscuro */
-    border-bottom: 3px solid #fa3b00; /* Naranja brillante */
+    background-color: #ffffff;
+    border-bottom: 2px solid #f0f0f0;
     position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* Logo y título en la izquierda */
@@ -93,138 +109,191 @@ body {
 .logo-placeholder {
     width: 50px;
     height: 50px;
-    background-color: #fa3b00; /* Naranja brillante */
+    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%); /* Azul cielo */
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 15px;
     font-size: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 8px rgba(135, 206, 235, 0.3);
 }
 
 .site-title {
     font-size: 1.8rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: white;
+    color: #000000; /* Negro */
+    font-weight: bold;
 }
 
-/* Carrusel de eslogan en el centro */
+/* Carrusel de eslogan en el centro - Versión letra por letra */
 .slogan-carousel {
     flex: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.carousel-slides {
-    width: 100%;
     height: 60px;
-    position: relative;
     overflow: hidden;
 }
 
-.slide {
-    position: absolute;
+.carousel-container {
     width: 100%;
     height: 100%;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-    transition: opacity 0.8s ease;
 }
 
-.slide.active {
-    opacity: 1;
-}
-
-.slogan {
-    font-size: 1.8rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.carousel-dots {
+.letter-carousel {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    align-items: center;
+    height: 100%;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #000000; /* Negro */
+    font-weight: bold;
 }
 
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: letterAppear 0.5s forwards;
+    margin: 0 1px;
 }
 
-.dot.active {
-    background-color: #fa3b00; /* Naranja brillante */
+.space {
+    width: 15px;
+    display: inline-block;
 }
 
-/* Botón de contacto en la derecha */
+@keyframes letterAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Botón de contacto como texto con funcionalidad */
 .contact-section {
     flex: 1;
     display: flex;
     justify-content: flex-end;
 }
 
-.contact-btn {
-    background-color: #fa3b00; /* Naranja brillante */
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1rem;
+.contact-text {
+    color: #000000; /* Negro */
+    text-decoration: none;
+    font-size: 1.1rem;
     font-family: 'Century Gothic', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-radius: 4px;
+    padding: 10px 20px;
+    position: relative;
+    background: none;
+    border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-weight: bold;
 }
 
-.contact-btn:hover {
-    background-color: #e03500;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(250, 59, 0, 0.3);
+.contact-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%); /* Azul cielo */
+    transition: width 0.3s ease;
+}
+
+.contact-text:hover {
+    color: #87CEEB; /* Azul cielo al hover */
+}
+
+.contact-text:hover::after {
+    width: 100%;
 }
 
 /* Contenido principal */
 .main-content {
+    flex: 1;
     padding: 60px 40px;
-    min-height: 70vh;
+    background-color: #ffffff;
 }
 
-.content-placeholder {
-    background-color: rgba(1, 20, 174, 0.2); /* Azul oscuro intenso con transparencia */
-    border-radius: 10px;
-    padding: 40px;
+.content-section {
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
-    border: 1px solid rgba(250, 59, 0, 0.2); /* Naranja brillante con transparencia */
 }
 
-.content-placeholder h2 {
-    color: white;
-    margin-bottom: 20px;
-    font-size: 2.2rem;
+.content-section h2 {
+    color: #000000;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.content-placeholder p {
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 15px;
+.content-section p {
+    color: #333333;
+    margin-bottom: 50px;
     font-size: 1.2rem;
-    line-height: 1.5;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Servicios */
+.services {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    flex-wrap: wrap;
+}
+
+.service-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 4px solid transparent;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #87CEEB;
+}
+
+.service-card i {
+    font-size: 2.5rem;
+    color: #87CEEB;
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    color: #000000;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.service-card p {
+    color: #666666;
+    font-size: 1rem;
+    margin-bottom: 0;
 }
 
 /* Modal de contacto */
@@ -235,20 +304,20 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 1001;
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
-    background-color: #010e79; /* Azul oscuro */
-    padding: 30px;
+    background-color: #ffffff;
+    padding: 40px;
     border-radius: 10px;
     width: 90%;
     max-width: 500px;
-    border: 2px solid #fa3b00; /* Naranja brillante */
     position: relative;
+    color: #000000;
 }
 
 .close-btn {
@@ -256,19 +325,19 @@ body {
     top: 15px;
     right: 20px;
     font-size: 2rem;
-    color: white;
+    color: #000000;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .close-btn:hover {
-    color: #fa3b00; /* Naranja brillante */
+    color: #87CEEB;
 }
 
 .modal-content h2 {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: center;
-    color: white;
+    color: #000000;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -280,7 +349,7 @@ body {
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: white;
+    color: #000000;
     font-weight: bold;
 }
 
@@ -288,10 +357,10 @@ body {
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #ddd;
     border-radius: 4px;
-    background-color: rgba(1, 20, 174, 0.3); /* Azul oscuro intenso con transparencia */
-    color: white;
+    background-color: #f9f9f9;
+    color: #000000;
     font-family: 'Century Gothic', sans-serif;
     font-size: 1rem;
 }
@@ -299,14 +368,15 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #fa3b00; /* Naranja brillante */
+    border-color: #87CEEB;
+    box-shadow: 0 0 0 2px rgba(135, 206, 235, 0.2);
 }
 
 .submit-btn {
-    background-color: #fa3b00; /* Naranja brillante */
+    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
     color: white;
     border: none;
-    padding: 12px 30px;
+    padding: 14px 30px;
     font-size: 1rem;
     font-family: 'Century Gothic', sans-serif;
     text-transform: uppercase;
@@ -314,29 +384,44 @@ body {
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-weight: bold;
 }
 
 .submit-btn:hover {
-    background-color: #e03500;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(135, 206, 235, 0.4);
+}
+
+/* Footer */
+.footer {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer p {
+    color: #666666;
+    font-size: 0.9rem;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
     .welcome-title {
-        font-size: 3rem;
-        letter-spacing: 5px;
+        font-size: 3.5rem;
+        letter-spacing: 8px;
     }
     
     .header {
-        padding: 15px 20px;
+        padding: 15px 30px;
     }
     
     .site-title {
         font-size: 1.5rem;
     }
     
-    .slogan {
+    .letter-carousel {
         font-size: 1.5rem;
     }
 }
@@ -345,17 +430,19 @@ body {
     .header {
         flex-direction: column;
         padding: 15px;
+        gap: 15px;
     }
     
     .logo-section {
         width: 100%;
         justify-content: center;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
     
     .slogan-carousel {
         width: 100%;
-        margin: 15px 0;
+        margin: 10px 0;
+        height: 50px;
     }
     
     .contact-section {
@@ -364,44 +451,55 @@ body {
     }
     
     .welcome-title {
-        font-size: 2.2rem;
-        letter-spacing: 3px;
+        font-size: 2.5rem;
+        letter-spacing: 5px;
     }
     
-    .slogan {
+    .letter-carousel {
         font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .welcome-title {
-        font-size: 1.8rem;
-        letter-spacing: 2px;
-    }
-    
-    .site-title {
-        font-size: 1.2rem;
-    }
-    
-    .slogan {
-        font-size: 1.1rem;
-        letter-spacing: 1px;
-    }
-    
-    .contact-btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
     }
     
     .main-content {
         padding: 40px 20px;
     }
     
-    .content-placeholder {
-        padding: 25px;
+    .services {
+        flex-direction: column;
+        align-items: center;
     }
     
-    .content-placeholder h2 {
+    .service-card {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-title {
         font-size: 1.8rem;
+        letter-spacing: 3px;
+        padding: 10px;
+    }
+    
+    .site-title {
+        font-size: 1.2rem;
+    }
+    
+    .letter-carousel {
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+    
+    .contact-text {
+        padding: 8px 16px;
+        font-size: 1rem;
+    }
+    
+    .content-section h2 {
+        font-size: 1.8rem;
+    }
+    
+    .content-section p {
+        font-size: 1rem;
     }
 }

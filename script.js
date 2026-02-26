@@ -4,17 +4,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const welcomeScreen = document.getElementById('welcomeScreen');
     const welcomeTitle = document.getElementById('welcomeTitle');
     const mainContent = document.getElementById('mainContent');
-    const contactBtn = document.getElementById('contactBtn');
+    const contactText = document.getElementById('contactText');
     const contactModal = document.getElementById('contactModal');
     const closeModal = document.getElementById('closeModal');
     const contactForm = document.getElementById('contactForm');
-    const carouselSlides = document.querySelectorAll('.slide');
-    const carouselDots = document.querySelectorAll('.dot');
+    const letterCarousel = document.getElementById('letterCarousel');
     
-    // Variables para el carrusel
-    let currentSlide = 0;
-    const slideCount = carouselSlides.length;
-    let slideInterval;
+    // Frase para el carrusel letra por letra
+    const slogan = "VER DONDE OTROS MIRAN";
+    let currentLetterIndex = 0;
+    let carouselInterval;
+    let isDeleting = false;
+    let typingSpeed = 100; // Velocidad de escritura en ms
     
     // Función para mostrar la pantalla de bienvenida
     function showWelcomeScreen() {
@@ -57,68 +58,85 @@ document.addEventListener('DOMContentLoaded', function() {
             // Mostrar el contenido principal después de la animación
             setTimeout(() => {
                 welcomeScreen.style.display = 'none';
-                mainContent.style.display = 'block';
+                mainContent.style.display = 'flex';
                 
                 // Efecto de aparición del contenido principal
                 setTimeout(() => {
                     mainContent.style.opacity = '1';
                 }, 50);
                 
-                // Iniciar el carrusel de eslogan
-                startCarousel();
+                // Iniciar el carrusel de eslogan letra por letra
+                startLetterCarousel();
             }, 1000);
         }, 5000); // 5 segundos
     }
     
-    // Función para el carrusel de eslogan
-    function startCarousel() {
-        // Inicializar el primer slide
-        showSlide(currentSlide);
+    // Función para el carrusel de eslogan letra por letra
+    function startLetterCarousel() {
+        // Limpiar el contenedor
+        letterCarousel.innerHTML = '';
+        currentLetterIndex = 0;
+        isDeleting = false;
         
-        // Cambiar slide automáticamente cada 4 segundos
-        slideInterval = setInterval(() => {
-            nextSlide();
-        }, 4000);
+        // Iniciar el efecto de escritura
+        typeLetter();
     }
     
-    function showSlide(index) {
-        // Ocultar todos los slides
-        carouselSlides.forEach(slide => {
-            slide.classList.remove('active');
-        });
+    function typeLetter() {
+        // Obtener el texto actual
+        const currentText = slogan.substring(0, currentLetterIndex);
         
-        // Remover clase active de todos los dots
-        carouselDots.forEach(dot => {
-            dot.classList.remove('active');
-        });
+        // Limpiar el contenedor
+        letterCarousel.innerHTML = '';
         
-        // Mostrar el slide actual
-        carouselSlides[index].classList.add('active');
-        carouselDots[index].classList.add('active');
-    }
-    
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slideCount;
-        showSlide(currentSlide);
-    }
-    
-    // Event listeners para los dots del carrusel
-    carouselDots.forEach(dot => {
-        dot.addEventListener('click', function() {
-            // Reiniciar el intervalo cuando se hace click manual
-            clearInterval(slideInterval);
-            currentSlide = parseInt(this.getAttribute('data-slide'));
-            showSlide(currentSlide);
+        // Crear cada letra como un elemento separado
+        for(let i = 0; i < currentText.length; i++) {
+            const letterSpan = document.createElement('span');
+            const char = currentText[i];
             
-            // Reiniciar el intervalo
-            slideInterval = setInterval(() => {
-                nextSlide();
-            }, 4000);
-        });
-    });
+            if(char === ' ') {
+                letterSpan.className = 'space';
+                letterSpan.innerHTML = '&nbsp;';
+            } else {
+                letterSpan.className = 'letter';
+                letterSpan.textContent = char;
+                // Añadir un pequeño retraso a cada letra para efecto cascada
+                letterSpan.style.animationDelay = `${i * 50}ms`;
+            }
+            
+            letterCarousel.appendChild(letterSpan);
+        }
+        
+        // Si estamos escribiendo
+        if(!isDeleting && currentLetterIndex < slogan.length) {
+            currentLetterIndex++;
+            typingSpeed = 100; // Velocidad normal de escritura
+        } 
+        // Si hemos terminado de escribir
+        else if(!isDeleting && currentLetterIndex === slogan.length) {
+            // Esperar 2 segundos antes de empezar a borrar
+            isDeleting = true;
+            typingSpeed = 2000; // Pausa antes de borrar
+        }
+        // Si estamos borrando
+        else if(isDeleting && currentLetterIndex > 0) {
+            currentLetterIndex--;
+            typingSpeed = 50; // Velocidad más rápida para borrar
+        }
+        // Si hemos terminado de borrar
+        else {
+            isDeleting = false;
+            typingSpeed = 500; // Pausa antes de comenzar de nuevo
+        }
+        
+        // Programar el próximo paso
+        clearInterval(carouselInterval);
+        carouselInterval = setTimeout(typeLetter, typingSpeed);
+    }
     
     // Mostrar/ocultar modal de contacto
-    contactBtn.addEventListener('click', function() {
+    contactText.addEventListener('click', function(e) {
+        e.preventDefault();
         contactModal.style.display = 'flex';
     });
     
@@ -153,6 +171,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ejecutar la pantalla de bienvenida al cargar la página
     showWelcomeScreen();
+    
+    // Detener el carrusel cuando la página no está visible
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            clearInterval(carouselInterval);
+        } else {
+            startLetterCarousel();
+        }
+    });
     
     // Repetir la pantalla de bienvenida al recargar la página
     window.addEventListener('beforeunload', function() {

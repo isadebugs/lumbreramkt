@@ -29,44 +29,50 @@
                 <h1 class="site-title">LUMBRERA MARKETING</h1>
             </div>
 
-            <!-- Carrusel de eslogan en el centro -->
+            <!-- Carrusel de eslogan en el centro - Versión letra por letra -->
             <div class="slogan-carousel">
-                <div class="carousel-slides">
-                    <div class="slide active">
-                        <span class="slogan">VER DONDE OTROS MIRAN</span>
+                <div class="carousel-container">
+                    <div class="letter-carousel" id="letterCarousel">
+                        <!-- Las letras se generarán dinámicamente con JavaScript -->
                     </div>
-                    <div class="slide">
-                        <span class="slogan">ILUMINANDO TU MARCA</span>
-                    </div>
-                    <div class="slide">
-                        <span class="slogan">ESTRATEGIAS BRILLANTES</span>
-                    </div>
-                </div>
-                <div class="carousel-dots">
-                    <span class="dot active" data-slide="0"></span>
-                    <span class="dot" data-slide="1"></span>
-                    <span class="dot" data-slide="2"></span>
                 </div>
             </div>
 
             <!-- Botón de contacto en la derecha -->
             <div class="contact-section">
-                <button class="contact-btn" id="contactBtn">
-                    <i class="fas fa-envelope"></i> CONTACTO
-                </button>
+                <a href="#" class="contact-text" id="contactText">
+                    CONTACTO
+                </a>
             </div>
         </header>
 
-        <!-- Contenido principal (para futura expansión) -->
+        <!-- Contenido principal -->
         <main class="main-content">
-            <div class="content-placeholder">
-                <h2>Contenido Principal</h2>
-                <p>Aquí irá el contenido principal de tu sitio web.</p>
-                <p>Puedes agregar secciones para servicios, portfolio, equipo, testimonios, etc.</p>
+            <div class="content-section">
+                <h2>LumbRera Marketing</h2>
+                <p>Somos una agencia de marketing especializada en estrategias innovadoras que iluminan tu marca en el mercado digital.</p>
+                
+                <div class="services">
+                    <div class="service-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h3>Estrategia Digital</h3>
+                        <p>Desarrollamos planes personalizados para alcanzar tus objetivos.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Análisis de Mercado</h3>
+                        <p>Identificamos oportunidades donde otros solo ven datos.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-paint-brush"></i>
+                        <h3>Diseño Creativo</h3>
+                        <p>Creamos identidades visuales impactantes y memorables.</p>
+                    </div>
+                </div>
             </div>
         </main>
 
-        <!-- Modal de contacto (oculto por defecto) -->
+        <!-- Modal de contacto -->
         <div class="modal" id="contactModal">
             <div class="modal-content">
                 <span class="close-btn" id="closeModal">&times;</span>
@@ -88,6 +94,11 @@
                 </form>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2023 LUMBRERA MARKETING. Todos los derechos reservados.</p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
