@@ -1,505 +1,220 @@
-/* Reset y estilos base */
-* {
+/* styles.css */
+
+/* Importar una fuente moderna (opcional) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap');
+
+/* Estilos generales */
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Century Gothic', sans-serif;
-    color: #000000; /* Letras negras */
-    background-color: #ffffff; /* Fondo blanco */
-    overflow-x: hidden;
-    transition: background-color 0.5s ease;
-}
-
-/* Pantalla de bienvenida - Fondo azul cielo */
-.welcome-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%); /* Azul cielo */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transition: transform 1s ease-in-out;
-}
-
-.welcome-content {
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    padding: 30px;
-}
-
-.welcome-title {
-    font-size: 4.5rem;
-    letter-spacing: 10px;
-    text-transform: uppercase;
-    position: relative;
-    color: white;
-    padding: 20px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-}
-
-/* Efecto de luz pasando por las letras mejorado */
-.light-effect {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 150%;
-    height: 100%;
-    background: linear-gradient(
-        90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.8), 
-        rgba(255, 255, 255, 0.9), 
-        rgba(255, 255, 255, 0.8), 
-        transparent
-    );
-    animation: lightPass 3s ease-in-out infinite;
-    transform: skewX(-20deg);
-}
-
-@keyframes lightPass {
-    0% {
-        left: -100%;
-    }
-    70% {
-        left: 100%;
-    }
-    100% {
-        left: 100%;
-    }
-}
-
-/* Contenido principal */
-.container {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0a192f; /* Azul marino como el mar profundo */
+    color: #e0e0e0; /* Cambiado a gris claro para el contenido principal */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Header / Bloque superior */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    background-color: #ffffff;
-    border-bottom: 2px solid #f0f0f0;
-    position: relative;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-/* Logo y título en la izquierda */
-.logo-section {
-    display: flex;
-    align-items: center;
-    flex: 1;
-}
-
-.logo-placeholder {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%); /* Azul cielo */
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 15px;
-    font-size: 1.5rem;
-    color: white;
-    box-shadow: 0 4px 8px rgba(135, 206, 235, 0.3);
-}
-
-.site-title {
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #000000; /* Negro */
-    font-weight: bold;
-}
-
-/* Carrusel de eslogan en el centro - Versión letra por letra */
-.slogan-carousel {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-    overflow: hidden;
-}
-
-.carousel-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.letter-carousel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #000000; /* Negro */
-    font-weight: bold;
-}
-
-.letter {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: letterAppear 0.5s forwards;
-    margin: 0 1px;
-}
-
-.space {
-    width: 15px;
-    display: inline-block;
-}
-
-@keyframes letterAppear {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Botón de contacto como texto con funcionalidad */
-.contact-section {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.contact-text {
-    color: #000000; /* Negro */
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-family: 'Century Gothic', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 10px 20px;
-    position: relative;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: bold;
-}
-
-.contact-text::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%); /* Azul cielo */
-    transition: width 0.3s ease;
-}
-
-.contact-text:hover {
-    color: #87CEEB; /* Azul cielo al hover */
-}
-
-.contact-text:hover::after {
-    width: 100%;
-}
-
-/* Contenido principal */
-.main-content {
-    flex: 1;
-    padding: 60px 40px;
-    background-color: #ffffff;
-}
-
-.content-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.content-section h2 {
-    color: #000000;
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.content-section p {
-    color: #333333;
-    margin-bottom: 50px;
-    font-size: 1.2rem;
-    line-height: 1.6;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Servicios */
-.services {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 50px;
-    flex-wrap: wrap;
-}
-
-.service-card {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    padding: 30px;
-    width: 300px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-top: 4px solid transparent;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    border-top: 4px solid #87CEEB;
-}
-
-.service-card i {
-    font-size: 2.5rem;
-    color: #87CEEB;
-    margin-bottom: 20px;
-}
-
-.service-card h3 {
-    color: #000000;
-    margin-bottom: 15px;
-    font-size: 1.4rem;
-}
-
-.service-card p {
-    color: #666666;
-    font-size: 1rem;
-    margin-bottom: 0;
-}
-
-/* Modal de contacto */
-.modal {
-    display: none;
+/* --- PANTALLA DE CARGA --- */
+#splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1001;
+    background-color: #0a192f; /* Mismo azul que el fondo */
+    display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000; /* Para que esté por encima de todo */
+    /* Animación de "cortina" de salida (de arriba a abajo) */
+    animation: curtainClose 5s ease-in-out forwards;
 }
 
-.modal-content {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    color: #000000;
+#splash-title {
+    font-size: 4rem;
+    color: #e0e0e0; /* Cambiado a gris claro */
+    text-align: center;
+    margin: 0 20px;
+    /* Efecto de luz de izquierda a derecha - MEJORADO */
+    background: linear-gradient(
+        90deg, 
+        #e0e0e0 0%,        /* Gris en el extremo izquierdo */
+        #e0e0e0 30%,       /* Gris hasta el 30% */
+        #ffffff 50%,       /* Blanco brillante en el centro (la luz) */
+        #e0e0e0 70%,       /* Gris desde el 70% */
+        #e0e0e0 100%       /* Gris en el extremo derecho */
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent; /* Hace que el color de la letra sea el del background */
+    animation: shine 2.5s ease-in-out infinite; /* Animación de brillo más lenta y suave */
 }
 
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
+/* Animación que simula la cortina cerrándose (apareciendo) */
+@keyframes curtainClose {
+    0% {
+        transform: translateY(-100%);
+    }
+    20% {
+        transform: translateY(0); /* Llega a su posición */
+    }
+    80% {
+        transform: translateY(0); /* Se queda quieto */
+    }
+    100% {
+        transform: translateY(100%); /* Se va hacia abajo */
+    }
+}
+
+/* Animación para el efecto de luz en el texto - MEJORADO */
+@keyframes shine {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+#main-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    opacity: 0; /* Inicia invisible */
+    animation: fadeInFromOutside 1s ease-out forwards;
+    /* Pequeño retraso para que empiece justo cuando la cortina termina */
+    animation-delay: 4.8s; 
+}
+
+/* Animación de "afuera hacia adentro" */
+@keyframes fadeInFromOutside {
+    0% {
+        opacity: 0;
+        transform: scale(0.95); /* Ligeramente más pequeño */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1); /* Tamaño normal */
+    }
+}
+
+/* --- HEADER (parte superior) --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
     font-size: 2rem;
-    color: #000000;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #e0e0e0; /* Gris claro */
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-btn {
+    background: transparent;
+    border: 2px solid transparent;
+    color: #e0e0e0; /* Gris claro */
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 8px 16px;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    border-radius: 5px;
 }
 
-.close-btn:hover {
-    color: #87CEEB;
+.nav-btn:hover {
+    border-color: #e0e0e0; /* Gris claro */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.modal-content h2 {
-    margin-bottom: 25px;
+/* --- MAIN (contenido central) --- */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
     text-align: center;
-    color: #000000;
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
-.form-group {
+main h2 {
+    font-size: 3rem;
     margin-bottom: 20px;
+    color: #e0e0e0; /* Gris claro */
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #000000;
-    font-weight: bold;
+main p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    opacity: 0.8;
+    color: #e0e0e0; /* Gris claro */
 }
 
-.form-group input,
-.form-group textarea {
+/* --- FOOTER (parte inferior con banner) --- */
+footer {
+    background-color: rgba(0, 0, 0, 0.3); /* Un azul un poco más oscuro para el banner */
+    padding: 20px 0;
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    color: #000000;
-    font-family: 'Century Gothic', sans-serif;
-    font-size: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #87CEEB;
-    box-shadow: 0 0 0 2px rgba(135, 206, 235, 0.2);
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
 }
 
-.submit-btn {
-    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
-    color: white;
-    border: none;
-    padding: 14px 30px;
-    font-size: 1rem;
-    font-family: 'Century Gothic', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    font-weight: bold;
+.social-icon {
+    color: #e0e0e0; /* Gris claro */
+    font-size: 2.5rem;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(135, 206, 235, 0.4);
+.social-icon:hover {
+    transform: translateY(-5px);
+    color: #ffffff; /* Blanco al pasar el mouse */
 }
 
-/* Footer */
-.footer {
-    background-color: #f0f0f0;
-    padding: 20px;
-    text-align: center;
-    margin-top: auto;
-}
-
-.footer p {
-    color: #666666;
-    font-size: 0.9rem;
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .welcome-title {
-        font-size: 3.5rem;
-        letter-spacing: 8px;
-    }
-    
-    .header {
-        padding: 15px 30px;
-    }
-    
-    .site-title {
-        font-size: 1.5rem;
-    }
-    
-    .letter-carousel {
-        font-size: 1.5rem;
-    }
-}
-
+/* Responsive para móviles */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        padding: 15px;
-        gap: 15px;
-    }
-    
-    .logo-section {
-        width: 100%;
-        justify-content: center;
-        margin-bottom: 10px;
-    }
-    
-    .slogan-carousel {
-        width: 100%;
-        margin: 10px 0;
-        height: 50px;
-    }
-    
-    .contact-section {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .welcome-title {
+    #splash-title {
         font-size: 2.5rem;
-        letter-spacing: 5px;
     }
-    
-    .letter-carousel {
-        font-size: 1.3rem;
-    }
-    
-    .main-content {
-        padding: 40px 20px;
-    }
-    
-    .services {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .service-card {
-        width: 100%;
-        max-width: 400px;
-    }
-}
 
-@media (max-width: 480px) {
-    .welcome-title {
-        font-size: 1.8rem;
-        letter-spacing: 3px;
-        padding: 10px;
+    header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
     }
-    
-    .site-title {
-        font-size: 1.2rem;
+
+    .logo {
+        font-size: 1.5rem;
     }
-    
-    .letter-carousel {
-        font-size: 1rem;
-        letter-spacing: 1px;
+
+    nav {
+        gap: 10px;
     }
-    
-    .contact-text {
-        padding: 8px 16px;
-        font-size: 1rem;
+
+    .nav-btn {
+        font-size: 0.9rem;
+        padding: 6px 12px;
     }
-    
-    .content-section h2 {
-        font-size: 1.8rem;
-    }
-    
-    .content-section p {
-        font-size: 1rem;
+
+    .social-icon {
+        font-size: 2rem;
     }
 }
